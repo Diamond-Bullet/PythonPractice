@@ -45,7 +45,7 @@ class RegularDogData:
             return NotImplemented
         return (self.rank, self.name) == (other.rank, other.name)
 
-class TestOO(TestCase):
+class TestDataClass(TestCase):
     def test_dataclass(self):
         d1 = DogData(10, 'Dog A')
         d2 = DogData(10, 'Dog A')
