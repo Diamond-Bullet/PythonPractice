@@ -111,7 +111,7 @@ def test_dict():
 
     for key in d2:
         print(key)
-    for key, value in d2:
+    for key, value in d2.items():
         print(key, value)
 
     d2.clear()
