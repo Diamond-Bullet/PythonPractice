@@ -3,6 +3,7 @@ class ListNode:
         self.val = val
         self.next = next
 
+
 class LinkedList:
     def __init__(self, vals):
         self.root = ListNode()
@@ -37,6 +38,7 @@ class LinkedList:
         if not list2:
             node = list1
         self.root = new_root
+
 
 class UnionFind:
     def __init__(self, n):

@@ -2,6 +2,7 @@ import math
 import random
 import sys
 
+
 def test_identifier():
     """
     identifier can contain English letters, numbers and underscore, and can't start with numbers.
@@ -10,6 +11,7 @@ def test_identifier():
     identifier starts with two underscores is private class member.
     以双下划线开头和结尾的 __foo__ 代表 Python 里特殊方法专用的标识，如 __init__() 代表类的构造函数。
     """
+
 
 def test_number():
     i1 = 10  # integer
@@ -49,6 +51,7 @@ def test_number():
     i1 &= i2 | (i3 << 3)
     i1 ^= i2  # XOR
 
+
 # string and if-else
 def test_string():
     #
@@ -69,6 +72,7 @@ def test_string():
         print(s1[:6:2])
     else:
         print(s1[:-1:2])
+
 
 # list and loop
 def test_list():
@@ -92,12 +96,14 @@ def test_list():
     else:  # if for-loop finishes normally (not terminated by `break`), `else` will get executed.
         print("finish printing list")
 
+
 def test_tuple():
     # tuple is unmodifiable.
     t1 = (1,)
     t2 = (1, 2, 3)
     t3 = (1, 2, "a")
     t4 = t1 + t2
+
 
 def test_dict():
     d1 = {}
@@ -117,6 +123,7 @@ def test_dict():
     d2.clear()
     d2.keys()
 
+
 def test_set():
     s1 = set()
     s2 = {1, 3, 'a'}
@@ -129,11 +136,13 @@ def test_set():
     if 3 in s2:
         print("3 in s2")
 
+
 def test_print():
     print("ss\nss")
     print("ss\tss")
     print("ss\rss")
     print('你好，世界')
+
 
 def test_exception():
     try:
@@ -143,16 +152,17 @@ def test_exception():
         b -= d
     except ZeroDivisionError as err:
         print(err)
-    except BaseException as err1: # all exceptions must subclass BaseException. hence, it catches all exceptions.
+    except BaseException as err1:  # all exceptions must subclass BaseException. hence, it catches all exceptions.
         # simply use `except` here is ok. it works the same as expression above.
         print(err1)
-    else: # run if no exception happens.
+    else:  # run if no exception happens.
         print('no error')
-    finally: # always execute.
+    finally:  # always execute.
         print('anyway, I will get executed')
 
+
 def test_iterator():
-    l = [1,2,3,4,5]
+    l = [1, 2, 3, 4, 5]
     il = iter(l)
     while True:
         try:
@@ -160,9 +170,11 @@ def test_iterator():
         except StopIteration as e:
             sys.exit()
 
+
 # parameter with default value
 def add(a, b=10):
     return a + b
+
 
 # variable-length arguments
 # *args refers to a tuple
@@ -172,14 +184,17 @@ def my_print(a, *args, **kwargs):
     print(args)
     print(kwargs)
 
+
 def test_my_print():
     my_print(10, "args", a=1, b=True)
+
 
 # open file
 # r: read, w: write, a: append, b: open in binary format,
 def test_open_file():
     file = open("/root/test", 'a')
     file1 = open("/root/test", 'wb')
+
 
 if __name__ == "__main__":
     test_number()
