@@ -1,0 +1,122 @@
+HTTP和HTML的关系:
+1.客户端封装HTTPRequest，想服务器发起请求
+2.服务端接受请求，分析资源请求路径、请求参数(get查询参数,post请求参数，json/字节流)、请求方法、请求头
+3.服务端根据资源的请求路径读取文件内容，并生成字节码数据且封装相应对象(HTTPResponse)
+4.客户端接受服务端的HTTPResponse，判断请求是否成功，如果成功则显示数据(html/json)
+
+PYTHON web开发框架:
+WSGI，PYTHON的WEB服务网关接口，类似于一个标准的协议框架，在此基础上形成了一些很全面的框架。
+Django：组件最全、最强大的框架，主要用于后端服务管理、运维
+Flask：小巧灵活的框架，可以快速开发API(应用程序接口)
+Tornado: 基于协程、单线程单进程的框架，实现非阻塞的网络框架
+Sanic：目前性能最优的web非阻塞框架。
+
+python本身后端开发的模块:
+from wsgiref.simple_server import make_server
+
+flask流程 MVC:
+1.客户端发起请求，通过路由找到视图处理函数
+2.路由(请求资源路径)和视图处理函数(Controller)
+3.视图处理函数根据业务需求，加载数据(Model)并渲染到模板(View)中
+4.将渲染之后的模板数据返回给客户端。
+
+MTV，基于MVC
+flask_script:支持命令行参数
+flask-blueprint:实现视图函数的拆分
+
+converter转换器：
+<converter:word>
+converter类型： string,int,float,path,uuid
+任意类型，省略converter
+例子： /forward/www.baidu.com   @app.route('/forward/<path:url>') def forward(url): return redirect(url)
+
+get 查询数据，大小1M以内，参数显示在url中
+post 添加数据，大小可以超过1G，以表单参数形式上传，不显示在url中
+put 更新数据
+patch 批量更新数据
+delete 删除数据
+
+编写接口后，需要自己进行测试，需要requests，参考card.py中的代码
+
+请求对象：
+封装客户端发送的请求数据，有请求头、请求体
+包含请求路径、请求方法、请求头、Cookie、请求的参数和上传的数据
+from flask import request
+请求对象的属性都是键值对
+request.args 查询参数
+request.form 表单参数
+request.headers 请求头
+request.file 上传的文件
+request.method 请求方法，大写
+request.url 请求路径  http://localhost:5000/user/find?name=123&task=123
+等属性
+
+响应对象：
+封装服务端发送的响应数据，有响应头、响应体
+response.具体代码参见bank.py
+
+cookie技术：
+数据存储在客户端，在浏览器中为每个站点(host)创建一个存储cookie的空间
+cookie以键值对形式存储数据，每个键值对都有存活期
+chrome://settings/siteData中存储了谷歌浏览器的cookie
+
+向客户端写入cookie：
+response.set_cookie() 向客户端添加cookie  注意domain参数必须填ip地址，不能是localhost等替代符号
+response.delete_cookie() 删除cookie
+request.cookies.get('name') 从请求对象中获取cookie信息
+
+会话Session:
+客户端和服务端建立的连接。
+http/1.1以上时，会话是场链接，多个请求和响应共存于一个会话中。
+查看请求头/响应头Connection，如果值是keep-alive，表示是长连接
+在flask中使用session时，需要设置秘钥，在
+
+flask session插件：
+http协议中，cookie中会存储session_id，用来区别当前请求属于哪个session会话，所以session依赖于cookie。
+flask将session数据存储在cookie中，禁用cookie会导致会话失效。
+安装flask-session，实现session的持久化,存储在sql或者redis中
+在__init__中初始化session对象
+
+静态资源文件：
+可以在__init__中配置静态资源目录和路由
+static下通常存储css,js,images等
+
+template模板：
+jinja2模板技术，支持点'.'语法: 对象.属性  列表.索引  字典.key
+
+过滤器：
+对模板中的占位变量使用
+var|过滤器1|过滤器2...
+过滤器分为：字符串的、列表的、安全性的、数值性的等
+reverse lower upper title capitalize format default等等，参见文档jinja2/filters.py 或者网络搜索
+unique对列表去重，并且得到一个生成器
+join(s)以s为分隔符，显示一个可迭代对象内的值,last,first
+safe过滤器可能导致script注入攻击
+可以自定义过滤器 @app.template_filter()
+
+ORM设计思想：对象关系映射 flask-SQLAlchemy
+DAO类实现对数据库的操作，由views调用，可以通过严格的检查设计防止SQL注入攻击，但是开发人员必须熟悉SQL语句
+ORM将实体类(Modles,Entries)和数据库表直接相关
+类==表，对象==一条记录，属性==字段
+flask-migrate 实现数据库迁移
+
+api接口开发：
+1.创建环境：virtualenv,conda,docker
+2.解决跨域问题:Flask-CORS
+3.数据库框架，ORM，DAO，基于元类自定义ORM
+4.拆分项目结构：manage.py,app等
+5.数据交互：前端上传json数据，后端接收并解析，生成json结果数据进行响应
+
+用户登录值token:
+用户登录之后，通过uuid生成用户对应的token，即用户令牌
+token同时存储在cookie和redis中
+
+flask日志：
+日志等级： logging.NOSET-0,DEBUG-10,INFO-20,WARNING-30,ERROR-40,CRITICAL-50
+app.logger.info()  **blue.logger.info()
+可以删除flask的默认日志处理器，可以增加自己的处理Handler: logging.StreamHandler,logging.FileHandler
+logging.handlers.HTTPHandler,logging.handlers.SMTPHandler
+
+bootstrap前端模板
+
+flask-RESTful插件风格

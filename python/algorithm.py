@@ -40,7 +40,7 @@ class LinkedList:
         self.root = new_root
 
 
-class UnionFind:
+class DisjointSet:
     def __init__(self, n):
         self.__parents = [i for i in range(n)]
         self.__size = [1] * n
