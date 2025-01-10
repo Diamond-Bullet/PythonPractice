@@ -15,5 +15,4 @@ if __name__ == '__main__':
 
     time.sleep(3)
 
-    # 模拟按键输入这段剪贴板文本内容
     pyautogui.typewrite(text, interval=0.02)

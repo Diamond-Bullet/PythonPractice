@@ -39,6 +39,17 @@ class LinkedList:
             node = list1
         self.root = new_root
 
+    def list(self):
+        li = []
+        node = self.root
+        while node:
+            li.append(node.val)
+            node = node.next
+        return li
+
+    def string(self):
+        return '->'.join(map(str, self.list()))
+
 
 class DisjointSet:
     def __init__(self, n):
