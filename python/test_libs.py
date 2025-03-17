@@ -26,3 +26,8 @@ class TestLibs(unittest.TestCase):
         h = []
         heapq.heapify(h)
         heapq.heappush(h, [0, 1])
+
+    def test_open_file(self):
+        # r: read, w: write, a: append, b: open in binary format,
+        file = open("/root/test", 'a')
+        file1 = open("/root/test", 'wb')
