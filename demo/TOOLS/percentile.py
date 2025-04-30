@@ -17,4 +17,3 @@ p95 = digest.percentile(95)     # Approximate 95th percentile
 print(f"Approximate median: {median}")
 print(f"Approximate 90th percentile: {p90}")
 print(f"Approximate 95th percentile: {p95}")
-
