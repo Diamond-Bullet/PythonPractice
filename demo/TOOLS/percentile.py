@@ -5,7 +5,7 @@ import random
 digest = TDigest()
 
 # Simulate streaming data. For example, adding 10,000 random numbers.
-for _ in range(10000):
+for _ in range(100000):
     value = random.uniform(0, 100)  # Random float between 0 and 100
     digest.update(value)
 
